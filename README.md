@@ -2,41 +2,30 @@
 
 An independent AI products studio -- [three16.xyz](https://three16.xyz)
 
+We design and ship focused, useful AI products -- from live consumer tools to agentic systems taking shape in the lab.
+
+## Products
+
+### Live
+
+- **Snag Deals** -- Automatically detects and catalogs podcast ads, promo codes, and sponsorships so you never miss a deal you meant to use. [snagdeals.io](https://snagdeals.io)
+- **Distill** -- Personalized AI summaries and action items from your podcasts and videos, with a Chrome extension and mobile app.
+
+### In the lab
+
+- **Agent Atlas** -- Configure use-case-specific agents that take actions across your digital and IoT ecosystem.
+- **Relay** -- A messaging-first agentic assistant that orchestrates your tools, APIs, and integrations from a single chat.
+- **Cheaper Groceries** -- Multi-store grocery price optimization with automated, agent-driven order placement.
+- **Sage** -- ML-driven stock scoring and valuation on a point-in-time data pipeline.
+- **Filament** -- An interactive 3D knowledge-graph explorer that maps entities and themes across podcasts and interviews.
+- **AI Model-Comparison** -- Transparent, use-case-grounded, side-by-side evaluation of LLMs.
+
 ## Development
 
 ```bash
 npm install
 npm run dev
 ```
-
-## Build
-
-```bash
-npm run build
-npm run preview   # preview the build locally
-```
-
-## Deployment
-
-The site deploys automatically to GitHub Pages via the GitHub Actions workflow on push to `main`.
-
-### DNS setup (at your registrar for three16.xyz)
-
-**Apex A records** (point to GitHub Pages):
-- `185.199.108.153`
-- `185.199.109.153`
-- `185.199.110.153`
-- `185.199.111.153`
-
-**Apex AAAA records** (IPv6):
-- `2606:50c0:8000::153`
-- `2606:50c0:8001::153`
-- `2606:50c0:8002::153`
-- `2606:50c0:8003::153`
-
-**www CNAME** -> `ara1data.github.io`
-
-Then in **Settings -> Pages**, set custom domain to `three16.xyz` and enable **Enforce HTTPS**.
 
 ## Adding a product
 

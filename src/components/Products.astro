@@ -1,0 +1,36 @@
+---
+import { products } from '../data/products';
+import ProductCard from './ProductCard.astro';
+
+const live = products.filter((p) => p.status === 'live');
+const lab = products.filter((p) => p.status === 'lab');
+---
+
+<section id="products" class="px-6 py-24">
+  <div class="mx-auto max-w-[1200px]">
+    <h2 class="reveal mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Products</h2>
+    <p class="mb-12 max-w-[520px] text-text-muted">
+      Tools we've shipped and ideas we're actively building.
+    </p>
+
+    <div class="mb-16">
+      <h3 class="mb-6 flex items-center gap-3 font-mono text-sm font-medium tracking-wide text-accent uppercase">
+        <span class="inline-block h-2 w-2 rounded-full bg-accent"></span>
+        Live
+      </h3>
+      <div class="grid gap-5 sm:grid-cols-2">
+        {live.map((product) => <ProductCard product={product} />)}
+      </div>
+    </div>
+
+    <div>
+      <h3 class="mb-6 flex items-center gap-3 font-mono text-sm font-medium tracking-wide text-text-muted uppercase">
+        <span class="inline-block h-2 w-2 rounded-full bg-text-muted"></span>
+        In the lab
+      </h3>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {lab.map((product) => <ProductCard product={product} />)}
+      </div>
+    </div>
+  </div>
+</section>

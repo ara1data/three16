@@ -1,0 +1,98 @@
+---
+const links = [
+  { label: 'Products', href: '#products' },
+  { label: 'About', href: '#about' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-bg/80 backdrop-blur-md border-b border-transparent"
+>
+  <nav class="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-5 transition-all duration-300">
+    <a href="/" class="text-xl font-bold tracking-tight text-text">
+      Three<span class="text-accent">16</span>
+    </a>
+
+    <ul class="hidden items-center gap-8 sm:flex">
+      {links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="text-sm font-medium text-text-muted transition-colors hover:text-accent"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <button
+      id="mobile-menu-btn"
+      class="flex items-center justify-center sm:hidden"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <svg id="menu-icon" class="h-6 w-6 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="close-icon" class="hidden h-6 w-6 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </nav>
+
+  <div id="mobile-menu" class="hidden border-t border-border sm:hidden">
+    <ul class="flex flex-col gap-1 px-6 py-4">
+      {links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="mobile-link block rounded-lg px-3 py-2.5 text-sm font-medium text-text-muted transition-colors hover:bg-bg-card hover:text-accent"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header')!;
+  const nav = header.querySelector('nav')!;
+  const btn = document.getElementById('mobile-menu-btn')!;
+  const menu = document.getElementById('mobile-menu')!;
+  const menuIcon = document.getElementById('menu-icon')!;
+  const closeIcon = document.getElementById('close-icon')!;
+
+  let scrolled = false;
+  function onScroll() {
+    const isScrolled = window.scrollY > 20;
+    if (isScrolled !== scrolled) {
+      scrolled = isScrolled;
+      header.classList.toggle('border-border', scrolled);
+      nav.classList.toggle('py-5', !scrolled);
+      nav.classList.toggle('py-3', scrolled);
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  btn.addEventListener('click', () => {
+    const open = menu.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(!open));
+    menuIcon.classList.toggle('hidden');
+    closeIcon.classList.toggle('hidden');
+  });
+
+  menu.querySelectorAll('.mobile-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+      menuIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+    });
+  });
+</script>

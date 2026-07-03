@@ -1,0 +1,59 @@
+---
+import type { Product } from '../data/products';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const isLive = product.status === 'live';
+const Tag = product.url ? 'a' : 'div';
+---
+
+<Tag
+  class:list={[
+    'reveal group flex flex-col rounded-xl border p-6 transition-all duration-200',
+    isLive
+      ? 'border-accent/20 bg-bg-card hover:border-accent/50 hover:bg-bg-card-hover hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/5'
+      : 'border-border bg-bg-card hover:border-border hover:bg-bg-card-hover',
+    product.url && 'cursor-pointer',
+  ]}
+  {...(product.url ? { href: product.url, target: '_blank', rel: 'noopener noreferrer' } : {})}
+>
+  <div class="mb-3 flex items-center justify-between gap-3">
+    <h3 class="text-lg font-semibold leading-snug">{product.name}</h3>
+    <span
+      class:list={[
+        'shrink-0 rounded-full px-2.5 py-0.5 font-mono text-xs font-medium',
+        isLive
+          ? 'bg-accent/15 text-accent'
+          : 'bg-text-muted/10 text-text-muted',
+      ]}
+    >
+      {isLive ? 'Live' : 'In the lab'}
+    </span>
+  </div>
+
+  <p class="mb-4 flex-1 text-sm leading-relaxed text-text-muted">
+    {product.blurb}
+  </p>
+
+  {product.tags && product.tags.length > 0 && (
+    <div class="flex flex-wrap gap-2">
+      {product.tags.map((tag) => (
+        <span class="rounded-md bg-bg px-2 py-0.5 font-mono text-xs text-text-muted">
+          {tag}
+        </span>
+      ))}
+    </div>
+  )}
+
+  {product.url && (
+    <div class="mt-4 flex items-center gap-1 text-xs font-medium text-accent opacity-0 transition-opacity group-hover:opacity-100">
+      Visit
+      <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+      </svg>
+    </div>
+  )}
+</Tag>
